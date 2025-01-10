@@ -1,0 +1,24 @@
+name: Publish Docker image
+
+on:
+    push:
+        branches:
+            -main
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v3
+
+            - name: setup .net
+              uses: actions/setup-dotnet
+              with:
+                dotnet-versions: '9.0'
+            
+            - name: restore and build
+              run: |
+                dotnet restore
+                dotnet build
